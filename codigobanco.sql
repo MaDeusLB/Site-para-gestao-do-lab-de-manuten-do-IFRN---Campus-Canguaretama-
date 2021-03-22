@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`colaborador` (
   PRIMARY KEY (`idcolab`))
 ENGINE = InnoDB;
 
-INSERT INTO `colaborador` (`idcolab`, `nomecolab`, `matricula`, `senha`) VALUES (NULL, 'Matheus Lima', '20171194010005', '20172019');
+INSERT INTO `colaborador` (`idcolab`, `nomecolab`, `matricula`, `senha`) VALUES (NULL, 'Matheus Lima', '20171194010005', 'ab7cefa70598d890c2f9093a1a7cc346e9aadc39');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
