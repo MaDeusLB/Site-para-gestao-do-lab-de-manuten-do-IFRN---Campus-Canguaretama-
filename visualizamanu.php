@@ -2,6 +2,7 @@
 $consulta = "SELECT * FROM manutencao";
 $con = $mysqli->query($consulta) or die($mysqli->error);
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,8 +46,7 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
         <table class="table">
         <thead class="thead-dark">
           <tr>
-              <th>Aluno</th>
-              <th>Matricula</th>
+              <th>Matricula do aluno</th>
               <th>Data da Manutenção</th>
               <th>Atividade</th>
               <th>Localização do Computador</th>
@@ -57,7 +57,7 @@ $con = $mysqli->query($consulta) or die($mysqli->error);
           <tbody>
           <?php while($dado = $con->fetch_array()){ ?>
           <tr>
-              <td scope="col"><?php echo $dado["nomealuno"] ?></td>
+              
               <td scope="col"><?php echo $dado["aluno_matricula"] ?></td>
               <td scope="col"><?php echo date("d/m/y", strtotime( $dado["datamanutencao"])) ?></td>
               <td scope="col"><?php echo $dado["atividade"] ?></td>

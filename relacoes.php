@@ -1,5 +1,5 @@
 <?php include("chave.php");
-$consulta = "SELECT * FROM equipamento";
+$consulta = "SELECT * FROM item_manutencao";
 $sql_query = $mysqli->query($consulta) or die($mysqli->error);
 $linha = $sql_query->fetch_assoc();
 
@@ -48,15 +48,10 @@ $linha = $sql_query->fetch_assoc();
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Cod. da relação</th>
-                            <th>Data</th>
-                            <th>Localização do comp.</th>
-                            <th>Peça 1</th>
-                            <th>Peça 2</th>
-                            <th>Peça 3</th>
-                            <th>Peça 4</th>
-                            <th>Peça 5</th>
-                            <th>Peça 6</th>
+                            <th>Cod. da manutenção Feita</th>
+                            <th>Peças utilizadas</th>
+                            
+                          
 
                         </tr>
                     </thead>
@@ -65,19 +60,10 @@ $linha = $sql_query->fetch_assoc();
                         do {
                         ?>
                             <tr>
-                                <td scope="col"><?php echo $linha["idequipamento"] ?></td>
-                                <td scope="col"><?php echo date("d/m/y", strtotime($linha["data"])) ?></td>
-                                <td scope="col"><?php echo $linha["localizacao"] ?></td>
-                                <td scope="col"><?php echo $linha["peca_idpeca"] ?></td>
-                                <td scope="col"><?php echo $linha["peca_idpeca1"] ?></td>
-                                <td scope="col"><?php echo $linha["peca_idpeca2"] ?></td>
-                                <td scope="col"><?php echo $linha["peca_idpeca3"] ?></td>
-                                <td scope="col"><?php echo $linha["peca_idpeca4"] ?></td>
-                                <td scope="col"><?php echo $linha["peca_idpeca5"] ?></td>
-                                <td scope="col">
-
-
-                                </td>
+                                <td scope="col"><?php echo $linha["manutencao_idmanutencao"] ?></td>
+                                 <td scope="col"><?php echo $linha["peca_idpeca"] ?></td>
+                               
+                                
 
 
                             </tr>

@@ -3,7 +3,7 @@
 	$host = "localhost";
 	$username = "root";
 	$senha = "";
-	$bd = "site_manutencao";
+	$bd = "novo_sistema";
 	
 
 

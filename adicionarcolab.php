@@ -132,7 +132,7 @@ if (isset($_POST['cadastrar'])) {
                       </div>
 
                       <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="senha" placeholder="Senha">
+                        <input type="password" class="form-control" name="senha" placeholder="Senha">
                       </div>
 
                     </div>

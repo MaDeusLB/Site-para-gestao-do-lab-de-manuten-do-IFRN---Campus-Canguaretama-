@@ -29,19 +29,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`peca`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`peca` (
-  `idpeca` INT NOT NULL AUTO_INCREMENT,
-  `nomepeca` VARCHAR(100) NOT NULL,
-  `compimp` TINYINT(2) NOT NULL,
-  `descricao` TEXT NULL,
-  `marcapeca` VARCHAR(45) NULL,
-  PRIMARY KEY (`idpeca`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`equipamento`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`equipamento` (
@@ -49,44 +36,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`equipamento` (
   `data` DATE NOT NULL,
   `localizacao` VARCHAR(60) NOT NULL,
   `descricao` TEXT NULL,
-  `peca_idpeca` INT NOT NULL,
-  `peca_idpeca1` INT NOT NULL,
-  `peca_idpeca2` INT NOT NULL,
-  `peca_idpeca3` INT NOT NULL,
-  `peca_idpeca4` INT NOT NULL,
-  `peca_idpeca5` INT NOT NULL,
-  PRIMARY KEY (`idequipamento`),
- 
-  CONSTRAINT `fk_equipamento_peca1`
-    FOREIGN KEY (`peca_idpeca`)
-    REFERENCES `mydb`.`peca` (`idpeca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipamento_peca2`
-    FOREIGN KEY (`peca_idpeca1`)
-    REFERENCES `mydb`.`peca` (`idpeca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipamento_peca3`
-    FOREIGN KEY (`peca_idpeca2`)
-    REFERENCES `mydb`.`peca` (`idpeca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipamento_peca4`
-    FOREIGN KEY (`peca_idpeca3`)
-    REFERENCES `mydb`.`peca` (`idpeca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipamento_peca5`
-    FOREIGN KEY (`peca_idpeca4`)
-    REFERENCES `mydb`.`peca` (`idpeca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipamento_peca6`
-    FOREIGN KEY (`peca_idpeca5`)
-    REFERENCES `mydb`.`peca` (`idpeca`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`idequipamento`))
 ENGINE = InnoDB;
 
 
@@ -100,10 +50,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`manutencao` (
   `localizacao` VARCHAR(45) NOT NULL,
   `descricao` TEXT NULL,
   `aluno_matricula` VARCHAR(40) NOT NULL,
-  `nomealuno` VARCHAR(100) NOT NULL,
   `equipamento_idequipamento` INT NOT NULL,
   PRIMARY KEY (`idmanutencao`),
-  
+  INDEX `fk_manutencao_aluno1_idx` (`aluno_matricula` ASC) VISIBLE,
+  INDEX `fk_manutencao_equipamento1_idx` (`equipamento_idequipamento` ASC) VISIBLE,
   CONSTRAINT `fk_manutencao_aluno1`
     FOREIGN KEY (`aluno_matricula`)
     REFERENCES `mydb`.`aluno` (`matricula`)
@@ -114,6 +64,19 @@ CREATE TABLE IF NOT EXISTS `mydb`.`manutencao` (
     REFERENCES `mydb`.`equipamento` (`idequipamento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`peca`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`peca` (
+  `idpeca` INT NOT NULL AUTO_INCREMENT,
+  `nomepeca` VARCHAR(100) NOT NULL,
+  `compimp` TINYINT(2) NOT NULL,
+  `descricao` TEXT NULL,
+  `marcapeca` VARCHAR(45) NULL,
+  PRIMARY KEY (`idpeca`))
 ENGINE = InnoDB;
 
 
@@ -133,14 +96,39 @@ ENGINE = InnoDB;
 -- Table `mydb`.`colaborador`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`colaborador` (
-  `idcolab` INT NOT NULL,
+  `idcolab` INT NOT NULL AUTO_INCREMENT,
   `nomecolab` VARCHAR(120) NOT NULL,
   `matricula` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idcolab`))
 ENGINE = InnoDB;
 
-INSERT INTO `colaborador` (`idcolab`, `nomecolab`, `matricula`, `senha`) VALUES (NULL, 'Matheus Lima', '20171194010005', 'ab7cefa70598d890c2f9093a1a7cc346e9aadc39');
+INSERT INTO `colaborador` (`idcolab`, `nomecolab`, `matricula`, `senha`) VALUES (NULL, 'Matheus de Lima', '20171194010005', 'ab7cefa70598d890c2f9093a1a7cc346e9aadc39');
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`item_manutencao`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`item_manutencao` (
+  `iditem_manutencao` INT NOT NULL AUTO_INCREMENT,
+  `manutencao_idmanutencao` INT NOT NULL,
+  `peca_idpeca` INT NOT NULL,
+  `descricao` TEXT NULL,
+  PRIMARY KEY (`iditem_manutencao`),
+  INDEX `fk_item_manutencao_manutencao1_idx` (`manutencao_idmanutencao` ASC) VISIBLE,
+  INDEX `fk_item_manutencao_peca1_idx` (`peca_idpeca` ASC) VISIBLE,
+  CONSTRAINT `fk_item_manutencao_manutencao1`
+    FOREIGN KEY (`manutencao_idmanutencao`)
+    REFERENCES `mydb`.`manutencao` (`idmanutencao`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_manutencao_peca1`
+    FOREIGN KEY (`peca_idpeca`)
+    REFERENCES `mydb`.`peca` (`idpeca`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

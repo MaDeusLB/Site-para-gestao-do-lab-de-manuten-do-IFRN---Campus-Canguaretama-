@@ -1,8 +1,5 @@
 <?php include("chave.php");
-
-
-
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -87,40 +84,36 @@
                     <h1>Registro</h1>
                     <div class="row">
 
-                      <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nome" placeholder="Nome">
-                      </div>
                       <div class="col-lg-6 ">
                         <input type="text" class="form-control" name="matricula" placeholder="Matricula">
                       </div>
 
-                      <div class="col-lg-6 espaco">
+                      <div class="col-lg-6 ">
                         <input type="text" maxlength="3" class="form-control" name="atividade" placeholder="É atividade ?">
                       </div>
 
-                      <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="peca" placeholder="Peça 1">
-                      </div>
-                      <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="peca1" placeholder="Peça 2">
-                      </div>
-                      <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="peca2" placeholder="Peça 3">
-                      </div>
-                      <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="peca3" placeholder="Peça 4">
-                      </div>
-                      <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="peca4" placeholder="Peça 5">
-                      </div>
-                      <div class="col-lg-6 espaco">
-                        <input type="text" class="form-control" name="peca5" placeholder="Peça 6">
-                      </div>
 
+                     
+
+                      <div class="col-lg-6 espaco">
+                       
+                          <?php
+                         
+                          $sql = "SELECT * FROM peca ORDER BY nomepeca";
+                          $result = mysqli_query($mysqli, $sql);
+                          if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              echo "<p><label><input type='checkbox' name='peca[]' value='".$row["idpeca"]."'> ".$row["nomepeca"]."| Cod. ".$row["idpeca"]."</label></p>";
+                              
+                            }
+                          }
+                          ?>
+                       
+                      </div>
 
 
                       <div class="col espaco">
-                        <input type="date" name="datamanutencao" class="form-control" placeholder="">
+                        <input type="date" name="datamanutencao" class="form-control">
                       </div>
 
 
